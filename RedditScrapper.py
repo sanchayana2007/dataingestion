@@ -17,8 +17,20 @@ def schema_generator():
         t= builder.to_json(indent=2)
         with open('versions/new_schema.json', 'w') as outfile:
             	json.dump(t,outfile)
+                
+        builderbq = SchemaBuilder()
+
+        builderbq.add_schema({ "properties": {"Title": {"type": "STRING"},"Created": {"type": "DATE"},"Autor" : {"type": "STRING"}, "Score" : {"type": "INTEGER"}, "id" : {"type": "STRING"},"Name" : {"type": "STRING"},"Comments" : {"type": "INTEGER"},"votes" : {"type": "FLOAT"}}})
         
-      
+
+        builderbq.add_schema({ "order": {"Title": {"type": "1"},"Created": {"type": "2"},"Autor" : {"type": "3"}, "Score" : {"type": "4"}, "id" : {"type": "5"},"Name" : {"type": "6"},"Comments" : {"type": "7"},"votes" : {"type": "8"}}})
+
+        builderbq.to_schema()
+        #print(builder.to_json(indent=2))
+        t= builderbq.to_json(indent=2)
+        with open('versions/new_bq_schema.json', 'w') as outfile:
+                json.dump(t,outfile)
+ 
 def write_csv(data):
 	with open("versions/Reddit_data.csv","w",newline="") as csv_file:
 		writer=csv.writer(csv_file)
@@ -56,8 +68,9 @@ def get_subredit(reddit ,reddit_subscribe,first):
 
 
 	t=reddit.subreddit(reddit_subscribe).top('month')
-	
-
+	#=reddit.subreddit(reddit_subscribe).top('week')
+	#t=reddit.redditor('dubai').top('month')
+        	
 	for i in t:
 		#sprint(dir(i))
 		print("Title",i.title)
@@ -70,8 +83,7 @@ def get_subredit(reddit ,reddit_subscribe,first):
 		print("Comments",i.num_comments)
 		print("votes",i.upvote_ratio)
 		output.append([i.title,datetime.utcfromtimestamp(int(i.created)).strftime('%Y-%m-%d'),i.author,i.score,i.id,i.name,i.num_comments,i.upvote_ratio])
-		break
-	
+		#break
 	return output
 
 

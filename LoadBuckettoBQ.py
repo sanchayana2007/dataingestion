@@ -43,26 +43,10 @@ def query_stackoverflow():
 
 # TODO(developer): Set table_id to the ID of the table to create.
 table_id = "eastern-dream-261104.redditdata.data"
-'''
-job_config = bigquery.LoadJobConfig(
-    schema=[
-        bigquery.SchemaField("uid", "STRING"),
-	bigquery.SchemaField("Name", "STRING"),
-	bigquery.SchemaField("Posts", "STRING"),
-	bigquery.SchemaField("Upvote", "STRING"),
-        bigquery.SchemaField("Comments", "STRING"),
-        bigquery.SchemaField("Date", "DATE"),
-
-
-
-
-    ],
-
-'''
 job_config = bigquery.LoadJobConfig()
 #job_config.autodetect = True
 #job_config.schema =create_bq_schema()
-job_config.schema = [bigquery.SchemaField("Title", "STRING"),bigquery.SchemaField("Created", "DATE"),bigquery.SchemaField("Autor", "STRING"),bigquery.SchemaField("Score", "INT64"),bigquery.SchemaField("id", "STRING"),bigquery.SchemaField("Name", "STRING"),bigquery.SchemaField("Comments", "STRING"),bigquery.SchemaField("votes", "FLOAT64")]
+job_config.schema = [bigquery.SchemaField("Title", "STRING"),bigquery.SchemaField("Created", "DATE"),bigquery.SchemaField("Autor", "STRING"),bigquery.SchemaField("Score", "INT64"),bigquery.SchemaField("id", "STRING"),bigquery.SchemaField("Name", "STRING"),bigquery.SchemaField("Comments", "INT64"),bigquery.SchemaField("votes", "FLOAT64")]
 job_config.skip_leading_rows = 1
 job_config.source_format = bigquery.SourceFormat.CSV
 #job_config = bigquery.LoadJobConfig(schema=create_bq_schema(),skip_leading_rows=1)
