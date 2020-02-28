@@ -1,8 +1,0 @@
-export GOOGLE_APPLICATION_CREDENTIALS="/home/san/Calloubroup/"
-
-
-settin up bucket  libraries 
-pip install --upgrade google-cloud-storage
-
-settin up bq libs 
-pip install --upgrade google-cloud-bigquery
