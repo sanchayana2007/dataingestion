@@ -76,7 +76,7 @@ def check_delete_blobs(bucket_name, blob_name):
 
 
 #delete_blob(bucket_name,"test")
-upload_blob(bucket_name,"/home/san/Calloubroup/versions/Reddit_data.csv","reddit_csv")
+upload_blob(bucket_name,"/home/san/Calloubroup1/versions/Reddit_data.csv","reddit_csv")
 #upload_blob(bucket_name,"/home/san/Calloubroup/versions/new_schema.json","reddit_schema")
 list_blobs("redditdubai-bucket-sanc")
 '''

@@ -36,15 +36,9 @@ def match_schemas(BQschema,TablleSchema):
             print("Not Matched")
 #eastern-dream-261104:redditdata
 bigqueryTableSchema = get_BQtable_schema("redditdata","data")	
-tableschema=get_table_schema("versions/new_bq_schema.json")
+tableschema=get_table_schema("versions/current_BQschema.json")
 #eastern-dream-261104:redditdata.data
 match_schemas(bigqueryTableSchema,tableschema)
-
-#Implement dtypes check 
-
-
-
-
 
 
 #Implement rowise cjehecks 

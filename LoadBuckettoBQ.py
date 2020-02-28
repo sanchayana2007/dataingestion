@@ -21,26 +21,6 @@ def create_bq_schema():
        return bqschema  
 
 
-def query_stackoverflow():
-    client = bigquery.Client()
-    query_job = client.query("""
-        SELECT
-          CONCAT(
-            'https://stackoverflow.com/questions/',
-            CAST(id as STRING)) as url,
-          view_count
-        FROM `bigquery-public-data.stackoverflow.posts_questions`
-        WHERE tags like '%google-bigquery%'
-        ORDER BY view_count DESC
-        LIMIT 10""")
-
-    results = query_job.result()  # Waits for job to complete.
-
-    for row in results:
-        print("{} : {} views".format(row.url, row.view_count))
-
-
-
 # TODO(developer): Set table_id to the ID of the table to create.
 table_id = "eastern-dream-261104.redditdata.data"
 job_config = bigquery.LoadJobConfig()
@@ -49,7 +29,6 @@ job_config = bigquery.LoadJobConfig()
 job_config.schema = [bigquery.SchemaField("Title", "STRING"),bigquery.SchemaField("Created", "DATE"),bigquery.SchemaField("Autor", "STRING"),bigquery.SchemaField("Score", "INT64"),bigquery.SchemaField("id", "STRING"),bigquery.SchemaField("Name", "STRING"),bigquery.SchemaField("Comments", "INT64"),bigquery.SchemaField("votes", "FLOAT64")]
 job_config.skip_leading_rows = 1
 job_config.source_format = bigquery.SourceFormat.CSV
-#job_config = bigquery.LoadJobConfig(schema=create_bq_schema(),skip_leading_rows=1)
 
 uri = "gs://redditdubai-bucket-sanc/reddit_csv"
 
