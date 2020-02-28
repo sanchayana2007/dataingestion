@@ -49,7 +49,7 @@ def connect_reddit():
 
 	return reddit
         
-def get_subredit(reddit ,reddit_subscribe,first):  
+def get_subredit(reddit ,reddit_subscribe,first=None):  
 	output=[]      
 	subreddit = reddit.subreddit(reddit_subscribe)
 
@@ -57,32 +57,36 @@ def get_subredit(reddit ,reddit_subscribe,first):
 	output.append(["Title","Created","Autor","Score","id","Name","Comments","votes"])
 
   	# Output: redditdev
-	'''
-	for submission in subreddit.top(limit=10):
-    		print(submission.title)  # Output: the submission's title
-    		print(submission.score)  # Output: the submission's score
-    		print(submission.id)     # Output: the submission's ID
-    		print(submission.url)
-	
-	'''
+	if not first:
+		print("Running the secondtime")	
+		for  i in subreddit.top('day'):
+			print("Title",i.title)
+			print("Created", datetime.utcfromtimestamp(int(i.created)).strftime('%Y-%m-%d'))
+			print("Autor",i.author)
+			print("Score",i.score)
+			print("id",i.id)
+			print("Name",i.name)
+			print("Comments",i.num_comments)
+			print("votes",i.upvote_ratio)
+			output.append([i.title,datetime.utcfromtimestamp(int(i.created)).strftime('%Y-%m-%d'),i.author,i.score,i.id,i.name,i.num_comments,i.upvote_ratio])							
+	elif first=='first':
 
 
-	t=reddit.subreddit(reddit_subscribe).top('month')
-	#=reddit.subreddit(reddit_subscribe).top('week')
-	#t=reddit.redditor('dubai').top('month')
+		t=reddit.subreddit(reddit_subscribe).top('month')
+		#reddit.subreddit(reddit_subscribe).top('week')
+		#t=reddit.redditor('dubai').top('month')
         	
-	for i in t:
-		#sprint(dir(i))
-		print("Title",i.title)
-		print("Created", datetime.utcfromtimestamp(int(i.created)).strftime('%Y-%m-%d'))
-	
-		print("Autor",i.author)
-		print("Score",i.score)
-		print("id",i.id)
-		print("Name",i.name)
-		print("Comments",i.num_comments)
-		print("votes",i.upvote_ratio)
-		output.append([i.title,datetime.utcfromtimestamp(int(i.created)).strftime('%Y-%m-%d'),i.author,i.score,i.id,i.name,i.num_comments,i.upvote_ratio])
+		for i in t:
+			#sprint(dir(i))
+			print("Title",i.title)
+			print("Created", datetime.utcfromtimestamp(int(i.created)).strftime('%Y-%m-%d'))
+			print("Autor",i.author)
+			print("Score",i.score)
+			print("id",i.id)
+			print("Name",i.name)
+			print("Comments",i.num_comments)
+			print("votes",i.upvote_ratio)
+			output.append([i.title,datetime.utcfromtimestamp(int(i.created)).strftime('%Y-%m-%d'),i.author,i.score,i.id,i.name,i.num_comments,i.upvote_ratio])
 		#break
 	return output
 
@@ -93,7 +97,7 @@ if __name__=="__main__":
 	
 	reddit=connect_reddit()
 
-	t=get_subredit(reddit ,'dubai','first')
+	t=get_subredit(reddit ,'dubai')
 	print(t)
 	schema_generator()
 	write_csv(t)	
