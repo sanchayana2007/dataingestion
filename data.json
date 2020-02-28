@@ -1,1 +1,0 @@
-"{\n  \"properties\": {\n    \"Name\": {\n      \"type\": \"string\"\n    },\n    \"Name1\": {\n      \"type\": \"string\"\n    }\n  },\n  \"$schema\": \"http://json-schema.org/schema#\"\n}"
